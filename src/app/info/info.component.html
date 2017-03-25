@@ -1,0 +1,75 @@
+<!--{{grid.skip}}-->
+<!--<a href="#" (click)="goHome()">goHome</a>-->
+<span (click)="addHandller()" class="k-icon k-i-plus-circle"></span>
+<kendo-grid
+  #grid
+  [selectable]="true"
+  [kendoGridBinding]="filteredData"
+  (edit)="editHandler($event)" (cancel)="cancelHandler($event)"
+  (save)="saveHandler($event)" (remove)="removeHandler($event)"
+  [pageSize]="10"
+  [pageable]="true"
+  [height]="400">
+  <kendo-grid-column title="question" field="prb" >
+    <template kendoGridHeaderTemplate let-dataItem>
+
+      question
+      <input placeholder="filter"   #termq (keyup)="searchQ(termq.value)" class="k-textbox k-input filter-box"/>
+
+
+
+
+    </template>
+  </kendo-grid-column>
+  <kendo-grid-column title="answer" field="sln" >
+    <template kendoGridHeaderTemplate let-dataItem>
+      answer
+      <input placeholder="filter" #terma (keyup)="searchA(terma.value)"  class="k-textbox k-input filter-box"/>
+    </template>
+  </kendo-grid-column>
+  <kendo-grid-column title="date" field="ts"  >
+    <template kendoGridCellTemplate let-dataItem>
+      <span >{{dataItem.ts|date:"dd/MM/yy"}}</span>
+    </template>
+  </kendo-grid-column>
+  <template kendoGridDetailTemplate let-dataItem>
+    <section >
+      <p *ngFor="let lnk of dataItem.lnks"> <a  href="{{lnk.pth}}">{{lnk.nm}}</a></p>
+
+    </section>
+  </template>
+  <kendo-grid-command-column  width="100">
+
+    <template  let-isNew="isNew">
+      <span kendoGridEditCommand class="k-icon k-i-pencil"></span>
+
+      <span kendoGridSaveCommand  kendoGridEditCommand class="k-icon  k-i-save k-i-floppy"></span>
+
+      <span kendoGridRemoveCommand class="k-icon k-i-delete k-i-trash"></span>
+
+      <span kendoGridCancelCommand class="k-icon k-i-undo"></span>
+    </template>
+  </kendo-grid-command-column>
+</kendo-grid>
+
+
+<kendo-dialog title="הוספת בעיה" *ngIf="showFaqDlg"   (close)="closeFaqDlg('cancel')">
+  <lg-faq-item></lg-faq-item>
+  <kendo-dialog-actions>
+    <button kendoButton (click)="closeFaqDlg('no')" primary="true">ביטול</button>
+    <button kendoButton (click)="closeFaqDlg('yes')" primary="true">אישור</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog title="מחיקת רשומה" *ngIf="showRemoveDlg" (close)="closeRemoveDlg('cancel')">
+  <p style="margin: 30px; text-align: center;">האם למחוק רשומה?</p>
+  <kendo-dialog-actions>
+    <button kendoButton (click)="closeRemoveDlg('no')" primary="true">ביטול</button>
+    <button kendoButton (click)="closeRemoveDlg('yes')" primary="true">אישור</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+
+<!--<lg-dialog-window [content]="dialogContent" (deleteRequest)="delete()">-->
+  <!---->
+<!--</lg-dialog-window>-->

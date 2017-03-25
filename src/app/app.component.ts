@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {UtilityService} from "./utility.service";
 
 @Component({
   selector: 'lg-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
+
 })
 export class AppComponent {
-  title = 'lg works!';
+  constructor (private  us:UtilityService){}
+get showContent():boolean{return this.us.showContent}
+
+  btns:Promise<number[]>;
 }

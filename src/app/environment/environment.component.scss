@@ -1,0 +1,22 @@
+.version-wrp{
+  margin-top: 20px;
+}
+.link{
+  padding: 5px;
+  border: solid;
+  border-radius: 15px;
+  margin: 5px;
+  color: white;
+  &:hover{
+    transform: scale(1.1);
+    text-decoration: none;
+    color: white;
+
+  }
+}
+
+
+
+.version-caption{
+  color: white;
+}

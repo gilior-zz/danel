@@ -1,0 +1,17 @@
+<div class="row" >
+  <div class="col-xs-6" *ngFor="let a of (danelVersionResponse|async)?.vers">
+
+    <div class="row version-wrp">
+      <div class="col-xs-12">
+        <div class="h1 version-caption text-center">
+          {{a[0].vr.major}} {{a[0].vr.minor}} {{a[0].vr.build}} {{a[0].vr.revision}}
+        </div>
+      </div>
+      <div class="col-xs-12 text-center">
+        <a class="link" href="a.url" *ngFor="let b of a">{{b.dbName}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
