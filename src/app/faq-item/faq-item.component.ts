@@ -39,7 +39,8 @@ export class FaqItemComponent implements OnInit,OnDestroy {
 
     const formModel = this.faqForm.value;
     let links:Array<SupportIssueLink>=new Array<SupportIssueLink>();
-    for  (let i=0;i<this.lnks.length;i++)
+
+    for  (let i=0;this.lnks!=null&& i< this.lnks.length;i++)
     {
       let l:SupportIssueLink={nm:this.lnks[0].name,pth:`$x:\lnks\{this.lnks[0].name}`};
       links.push(l);
