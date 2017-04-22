@@ -1,8 +1,9 @@
-import {Component, OnInit, trigger, state, transition, style, animate, AnimationTransitionEvent} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations'
 import {Observable} from "rxjs";
 import {RollerService} from "../roller.service";
 import {RollerResponse} from "../models";
-import {tick} from "@angular/core/testing";
+
 import {UtilityService} from "../utility.service";
 
 @Component({
@@ -45,7 +46,7 @@ export class RollerComponent implements OnInit {
     'Will you be my hero?'
   ];
   spanState:string="start";
-  private rollerResponse: Promise<RollerResponse>;
+  public rollerResponse: Promise<RollerResponse>;
   constructor(private  rs:RollerService,private  us:UtilityService) { this.resend(); }
   resend() {
     this.message$ = Observable.interval(500)
@@ -53,7 +54,7 @@ export class RollerComponent implements OnInit {
       .take(this.messages.length);
   }
 
-  animationDone(event:AnimationTransitionEvent ){
+  animationDone(event ){
     // let l=this.index+=1;
     // this.index=l%this.msgs.length;
     //
@@ -78,7 +79,7 @@ export class RollerComponent implements OnInit {
   }
   showMsg:boolean=true;
   ngOnInit() {
-   this.rollerResponse= this.rs.getMsgs();
+   this.rollerResponse= this.rs.getRllrs();
   }
 
 }

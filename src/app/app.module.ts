@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import {BrowserAnimationsModule}  from '@angular/platform-browser/animations'
 import { GridModule } from '@progress/kendo-angular-grid';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { InputsModule } from '@progress/kendo-angular-inputs';
@@ -26,6 +26,9 @@ import { CurtainComponent } from './curtain/curtain.component';
 import {UtilityService} from "./utility.service";
 import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 import { FaqItemComponent } from './faq-item/faq-item.component';
+import {requestOptionsProvider} from "./default-request-options.service";
+import { TreeModule } from 'angular-tree-component';
+import { MdlsService } from "./mdls.service";
 
 @NgModule({
   declarations: [
@@ -51,10 +54,12 @@ import { FaqItemComponent } from './faq-item/faq-item.component';
     HttpModule,
     LayoutModule,
     DialogModule,
-    UploadModule
+    UploadModule,
+    BrowserAnimationsModule,
+    TreeModule
     // AppRoutingModule
   ],
-  providers: [InfoService,EnvironmentService,LinksService,RollerService,UtilityService],
+  providers: [requestOptionsProvider,InfoService,EnvironmentService,LinksService,RollerService,UtilityService,MdlsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

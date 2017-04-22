@@ -6,7 +6,7 @@ export  class DanelVersion
 }
 
 export  class  Version{
-   major:number;  minor:number;  build:number ; revision:number;
+  _Major:number;  _Minor:number;  _Build:number ; _Revision:number;
 }
 export  class DanelVersionResponse
 {
@@ -52,8 +52,8 @@ export  class Module
 {
   id:number;
   pID?:number
-  chn:Module[]
-  nm:string
+  children:Module[]
+  name:string
 }
 
 export  class ModuleResponse

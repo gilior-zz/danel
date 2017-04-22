@@ -1,16 +1,29 @@
 .version-wrp{
   margin-top: 20px;
 }
+.col-xs-6{
+  //height:150px;
+}
+.lnk-wrpr{
+  //border:solid;
+}
 .link{
+  display: inline-block;
+  color: white;
+  border:solid;
   padding: 5px;
   border: solid;
   border-radius: 15px;
   margin: 5px;
   color: white;
+  transform: scale(1);
+  transition-property: transform;
+  transition-duration: 1s;
   &:hover{
     transform: scale(1.1);
     text-decoration: none;
-    color: white;
+    font-weight: bold;
+
 
   }
 }

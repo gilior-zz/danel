@@ -1,4 +1,4 @@
-.k-textbox{width: 100%;
+.k-textbox{width: 100% !important;
 }
 .k-grid{
   direction: ltr;
@@ -9,8 +9,12 @@
 
 }
 
-
-
-.k-grid-edit-row{
-  background-color: yellow !important;
+.k-header{
+  text-align: center;
 }
+
+ th:last-child{ 
+     text-align: center;
+     cursor: pointer;
+    }
+

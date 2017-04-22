@@ -1,27 +1,36 @@
 import { Injectable } from '@angular/core';
 import {RollerResponse, Roller} from "./models";
+import {Http, Response} from "@angular/http";
 
 @Injectable()
 export class RollerService {
 
-  constructor() {
+  url='http://localhost:20158/api/Values/GetRlr';
+  plug:number=6;
+  constructor(private  http:Http) { }
 
+  getRllrs():Promise<RollerResponse> {
+    return this.http.get(this.url)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
-
-  getMsgs():Promise<RollerResponse>{
-    let arr:Array<Roller>=new Array<Roller>();
-
-    for (let i=0;i<20;i++)
-    {
-      let d=new Date();
-      d.setDate(i*15);
-      arr.push({msg:` עדכון בנושא חשוב מאוד`,time:d,id:i});
+  private extractData(res: Response) {
+    let body = res.json();
+    return body;
+  }
+  private handleError (error: Response | any) {
+    // In a real world app, we might use a remote logging infrastructure
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
     }
-    let dd=new Date();
-    dd.setDate(93847);
-    let res:RollerResponse={rlrs:arr,time:dd};
-    console.log(res );
-    return Promise.resolve(res);
+    console.error(errMsg);
+    return Promise.reject(errMsg);
   }
 
 }

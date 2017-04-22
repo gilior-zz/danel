@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import  {Observable} from 'rxjs/observable'
-import 'rxjs/add/observable/of';
+import { Http ,Response} from "@angular/http";
+import { ModuleResponse } from "./models";
 
-import {SupportIssueResponse, SupportIssue, SupportIssueLink, Module} from "./models";
-import {Http, Response} from "@angular/http";
 @Injectable()
-export class InfoService {
-  url='http://localhost:20158/api/Values/GetSIS';
-  plug:number=6;
-  constructor(private  http:Http) { }
+export class MdlsService {
 
-  getFaQs():Promise<SupportIssueResponse> {
+  constructor(private  http:Http) { 
+
+  }
+
+ url='http://localhost:20158/api/Values/GetMdls';
+  public getMdls():Promise< ModuleResponse>
+  {
     return this.http.get(this.url)
       .toPromise()
       .then(this.extractData)
@@ -32,21 +33,7 @@ export class InfoService {
     }
     console.error(errMsg);
     return Promise.reject(errMsg);
+  
   }
 
-
-  add(si: SupportIssue):Promise<SupportIssueResponse>{
-return this.http.get(this.url)
-      .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
-  }
-
-  update(si: SupportIssue) {
-
-  }
-
-  remove(dataItem: SupportIssue) {
-
-  }
 }

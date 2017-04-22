@@ -8,14 +8,14 @@ import {LinkResponse, Link} from "../models";
   styleUrls: ['./links.component.scss']
 })
 export class LinksComponent implements OnInit {
-  private linkResponse: Promise<LinkResponse>;
+  public linkResponse: Promise<LinkResponse>;
 
   constructor(private  linksService: LinksService) {
   }
 
-  onClick(lnk: Link) {
+  onClick(lnk: string) {
     console.log(lnk);
-    window.location.replace('a.url');
+    window.location.replace(lnk);
 
   }
 

@@ -4,11 +4,11 @@
     <div class="row version-wrp">
       <div class="col-xs-12">
         <div class="h1 version-caption text-center">
-          {{a[0].vr.major}} {{a[0].vr.minor}} {{a[0].vr.build}} {{a[0].vr.revision}}
+         {{a[0].vr._Revision}} .{{a[0].vr._Build}} . {{a[0].vr._Minor}}. {{a[0].vr._Major}}
         </div>
       </div>
-      <div class="col-xs-12 text-center">
-        <a class="link" href="a.url" *ngFor="let b of a">{{b.dbName}}</a>
+      <div class="col-xs-12 text-center lnk-wrpr">
+        <a  class="link" href="\\danel-db\Apps\1.url" *ngFor="let b of a">{{b.dbName}}</a>
       </div>
     </div>
   </div>

@@ -1,6 +1,5 @@
-<!--{{grid.skip}}-->
-<!--<a href="#" (click)="goHome()">goHome</a>-->
-<span (click)="addHandller()" class="k-icon k-i-plus-circle"></span>
+
+
 <kendo-grid
   #grid
   [selectable]="true"
@@ -11,7 +10,7 @@
   [pageable]="true"
   [height]="400">
   <kendo-grid-column title="question" field="prb" >
-    <template kendoGridHeaderTemplate let-dataItem>
+    <ng-template  kendoGridHeaderTemplate let-dataItem>
 
       question
       <input placeholder="filter"   #termq (keyup)="searchQ(termq.value)" class="k-textbox k-input filter-box"/>
@@ -19,28 +18,31 @@
 
 
 
-    </template>
+    </ng-template >
   </kendo-grid-column>
   <kendo-grid-column title="answer" field="sln" >
-    <template kendoGridHeaderTemplate let-dataItem>
+    <ng-template  kendoGridHeaderTemplate let-dataItem>
       answer
       <input placeholder="filter" #terma (keyup)="searchA(terma.value)"  class="k-textbox k-input filter-box"/>
-    </template>
+    </ng-template >
   </kendo-grid-column>
   <kendo-grid-column title="date" field="ts"  >
-    <template kendoGridCellTemplate let-dataItem>
+    <ng-template  kendoGridCellTemplate let-dataItem>
       <span >{{dataItem.ts|date:"dd/MM/yy"}}</span>
-    </template>
+    </ng-template >
   </kendo-grid-column>
-  <template kendoGridDetailTemplate let-dataItem>
+  <ng-template  kendoGridDetailTemplate let-dataItem>
     <section >
       <p *ngFor="let lnk of dataItem.lnks"> <a  href="{{lnk.pth}}">{{lnk.nm}}</a></p>
 
     </section>
-  </template>
-  <kendo-grid-command-column  width="100">
+  </ng-template >
 
-    <template  let-isNew="isNew">
+  <kendo-grid-command-column   width="100">
+     <ng-template class="center"  kendoGridHeaderTemplate let-dataItem>
+     <span  (click)="addHandller()" class="k-icon k-i-plus-circle center"></span>
+    </ng-template>
+    <ng-template  kendoGridCellTemplate let-isNew="isNew">
       <span kendoGridEditCommand class="k-icon k-i-pencil"></span>
 
       <span kendoGridSaveCommand  kendoGridEditCommand class="k-icon  k-i-save k-i-floppy"></span>
@@ -48,7 +50,7 @@
       <span kendoGridRemoveCommand class="k-icon k-i-delete k-i-trash"></span>
 
       <span kendoGridCancelCommand class="k-icon k-i-undo"></span>
-    </template>
+    </ng-template>
   </kendo-grid-command-column>
 </kendo-grid>
 
@@ -70,6 +72,4 @@
 </kendo-dialog>
 
 
-<!--<lg-dialog-window [content]="dialogContent" (deleteRequest)="delete()">-->
-  <!---->
-<!--</lg-dialog-window>-->
+

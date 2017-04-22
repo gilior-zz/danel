@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild,DoCheck} from '@angular/core';
+import { Component, OnInit, ViewChild, DoCheck, ViewEncapsulation } from '@angular/core';
 import {InfoService} from "../info.service";
 import {SupportIssueResponse, SupportIssue} from "../models";
 import { GridComponent} from '@progress/kendo-angular-grid';
@@ -15,19 +15,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   selector: 'lg-info',
   templateUrl: 'info.component.html',
   styleUrls: ['info.component.scss'],
-
+   encapsulation: ViewEncapsulation.None,
 })
 export class InfoComponent implements OnInit {
   public formGroup: FormGroup;
   @ViewChild(GridComponent) viewChild: GridComponent;
-  private showFaqDlg: boolean;
-  private showRemoveDlg: boolean;
-  constructor(private  infoService: InfoService,private  ut:UtilityService) { }
+  public showFaqDlg: boolean;
+  public showRemoveDlg: boolean;
+  constructor(public  infoService: InfoService,public  ut:UtilityService) { }
   gridData: Array<SupportIssue>;
   filteredData: Array<SupportIssue>;
   prbFilter:string;
   slnFilter:string;
-  private editedRowIndex: number;
+  public editedRowIndex: number;
   items: Observable<string[]>;
   ngOnInit(){
     this.infoService.getFaQs().then(i=>{this.gridData=i.sis;this.filteredData=this.gridData});
@@ -36,7 +36,7 @@ export class InfoComponent implements OnInit {
 
 
   }
-  private handleQStream() {
+  public handleQStream() {
     this.searchQTermStream
       .debounceTime(300)
       .distinctUntilChanged().subscribe(
@@ -68,17 +68,17 @@ export class InfoComponent implements OnInit {
     ;
   }
 
-  private closeEditor(grid, rowIndex = this.editedRowIndex) {
+  public closeEditor(grid, rowIndex = this.editedRowIndex) {
     grid.closeRow(rowIndex);
     this.editedRowIndex = undefined;
     this.formGroup = undefined;
   }
 
-  private  addHandller(){
+  public  addHandller(){
     this.showFaqDlg=true;
   }
 
-  protected saveHandler({sender, rowIndex, formGroup, isNew}) {
+  public saveHandler({sender, rowIndex, formGroup, isNew}) {
     const si: SupportIssue = formGroup.value;
 
     this.infoService.update(si);
@@ -86,7 +86,7 @@ export class InfoComponent implements OnInit {
     sender.closeRow(rowIndex);
   }
 
-  protected removeHandler({dataItem}) {
+  public removeHandler({dataItem}) {
 
     //this.infoService.remove(dataItem);
     this.delID=dataItem.id;
@@ -119,7 +119,7 @@ export class InfoComponent implements OnInit {
 
   dialogContent:string='למחוק רשומה?';
 
-  protected editHandler({sender, rowIndex, dataItem}) {
+  public editHandler({sender, rowIndex, dataItem}) {
     this.closeEditor(sender);
 
     this.formGroup = new FormGroup({
@@ -137,7 +137,7 @@ export class InfoComponent implements OnInit {
     console.log(`dataItem ${dataItem.prb}`)
   }
 
-  protected cancelHandler({sender, rowIndex}) {
+  public cancelHandler({sender, rowIndex}) {
     this.closeEditor(sender, rowIndex);
   }
 
@@ -170,8 +170,8 @@ export class InfoComponent implements OnInit {
 
   isGridActive:boolean=true;
   skip:number=0;
-  private searchATermStream = new Subject<string>();
-  private searchQTermStream = new Subject<string>();
+  public searchATermStream = new Subject<string>();
+  public searchQTermStream = new Subject<string>();
   searchA(term: string) {this.searchATermStream.next(term); }
   searchQ(term: string) { this.searchQTermStream.next(term); }
 

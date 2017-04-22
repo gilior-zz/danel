@@ -1,12 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import {EnvironmentService} from "../environment.service";
 import {DanelVersionResponse} from "../models";
-
+import { trigger, state, style, transition, animate } from '@angular/animations'
 
 @Component({
   selector: 'lg-environment',
   templateUrl: 'environment.component.html',
-  styleUrls: ['environment.component.scss']
+  styleUrls: ['environment.component.scss'],
+  animations:[
+    trigger('anchorSize', [
+      transition('0 => 1', [
+
+        animate('1s ease-in', style({
+
+          transform: 'scale(1.1)'
+        }))
+      ]),
+    ])
+  ]
+
 })
 export class EnvironmentComponent implements OnInit {
   danelVersionResponse:Promise <DanelVersionResponse>;

@@ -3,30 +3,35 @@ import  {Observable} from 'rxjs/observable'
 import 'rxjs/add/observable/of';
 import * as  _ from 'lodash';
 import {LinkResponse, Link} from "./models";
-import {forEach} from "@angular/router/src/utils/collection";
+import {Response, Http} from "@angular/http";
 @Injectable()
 export class LinksService {
+  url='http://localhost:20158/api/Values/GetLnks';
   plug:number=15;
 
-  constructor() {
+  constructor(private  http:Http) { }
 
+  getLinks():Promise<LinkResponse> {
+    return this.http.get(this.url)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
-
-  getLinks():Promise<LinkResponse>{
-    let custom:Array<Link>=new Array<Link>();
-    for (let i=0;i<this.plug;i++)
-      custom.push({ctg:`category ${i%3}`,pth:`link ${i%5}`,nm:`name ${i%5}`})
-    let grp=_.groupBy(custom,i=>i.ctg);
-    let lnkArray:Array<Link>=new Array<Link>();
-    for (let item in grp)
-    {
-      lnkArray.push(grp[item])
+  private extractData(res: Response) {
+    let body = res.json();
+    return body;
+  }
+  private handleError (error: Response | any) {
+    // In a real world app, we might use a remote logging infrastructure
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
     }
-
-    let d=new Date();
-    d.setDate(234 );
-    let linkResponse:LinkResponse={lnks:lnkArray,time:d};
-    console.log(lnkArray);
-    return Promise.resolve(linkResponse);
+    console.error(errMsg);
+    return Promise.reject(errMsg);
   }
 }

@@ -1,4 +1,5 @@
-import {Component, OnInit, trigger, state, style, transition, animate, HostListener} from '@angular/core';
+import {Component, OnInit, HostListener} from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations'
 
 @Component({
   selector: 'lg-mnu',
