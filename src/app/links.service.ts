@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import  {Observable} from 'rxjs/observable'
 import 'rxjs/add/observable/of';
 import * as  _ from 'lodash';
-import {LinkResponse, Link} from "./models";
-import {Response, Http} from "@angular/http";
+
+import { Response, Http } from "@angular/http";
+import { LinkResponse } from "../models";
 @Injectable()
 export class LinksService {
   url='http://localhost:20158/api/Values/GetLnks';

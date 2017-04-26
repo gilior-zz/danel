@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {RollerResponse, Roller} from "./models";
-import {Http, Response} from "@angular/http";
+
+import { Http, Response } from "@angular/http";
+import { RollerResponse } from "../models";
 
 @Injectable()
 export class RollerService {

@@ -30,6 +30,7 @@ import {requestOptionsProvider} from "./default-request-options.service";
 import { TreeModule } from 'angular-tree-component';
 import { MdlsService } from "./mdls.service";
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { MdlsService } from "./mdls.service";
     RollerComponent,
     CurtainComponent,
     DialogWindowComponent,
-    FaqItemComponent
+    FaqItemComponent,
+ 
 
   ],
   imports: [

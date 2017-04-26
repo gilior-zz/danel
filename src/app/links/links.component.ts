@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {LinksService} from "../links.service";
-import {LinkResponse, Link} from "../models";
+import { LinksService } from "../links.service";
+import { LinkResponse, Link } from "../../models";
+
 
 @Component({
   selector: 'lg-links',

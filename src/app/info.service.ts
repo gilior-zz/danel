@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import  {Observable} from 'rxjs/observable'
 import 'rxjs/add/observable/of';
 
-import {SupportIssueResponse, SupportIssue, SupportIssueLink, Module} from "./models";
-import {Http, Response} from "@angular/http";
+
+import { Http, Response } from "@angular/http";
+import { SupportIssueResponse, SupportIssue } from "../models";
 @Injectable()
 export class InfoService {
   url='http://localhost:20158/api/Values/GetSIS';

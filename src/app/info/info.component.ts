@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, DoCheck, ViewEncapsulation } from '@angular/core';
 import {InfoService} from "../info.service";
-import {SupportIssueResponse, SupportIssue} from "../models";
+
 import { GridComponent} from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
@@ -10,6 +10,7 @@ import { Subject } from 'rxjs/Subject';
 import {filterBy} from "@progress/kendo-data-query";
 import {UtilityService} from "../utility.service";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SupportIssue } from "../../models";
 
 @Component({
   selector: 'lg-info',
