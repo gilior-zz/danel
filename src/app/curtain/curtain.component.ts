@@ -31,7 +31,7 @@ import {UtilityService} from "../utility.service";
 })
 export class CurtainComponent implements OnInit {
 
-  constructor (private  us:UtilityService){}
+  constructor (private  us:UtilityService){} 
   get showContent():boolean{return this.us.showContent}
   ngOnInit() {
     setTimeout(()=>

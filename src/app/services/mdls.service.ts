@@ -1,17 +1,21 @@
-import { Injectable } from '@angular/core';
-
+import { Injectable, Inject } from '@angular/core';
 import { Http, Response } from "@angular/http";
-import { RollerResponse } from "../models";
+import { ModuleResponse } from "../../models";
+import { APP_CONFIG, AppConfig } from "../app-config";
+
+
 
 @Injectable()
-export class RollerService {
+export class MdlsService {
+  config: any;
 
-  url='http://localhost:20158/api/Values/GetRlr';
-  plug:number=6;
-  constructor(private  http:Http) { }
+  constructor(private http: Http, @Inject(APP_CONFIG) config: AppConfig) {
+    this.config.apiEndpoint = config.apiEndpoint + '/mdls';
+  }
 
-  getRllrs():Promise<RollerResponse> {
-    return this.http.get(this.url)
+
+  public getMdls(): Promise<ModuleResponse> {
+    return this.http.get(this.config.apiEndpoint)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -20,7 +24,7 @@ export class RollerService {
     let body = res.json();
     return body;
   }
-  private handleError (error: Response | any) {
+  private handleError(error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
@@ -32,6 +36,7 @@ export class RollerService {
     }
     console.error(errMsg);
     return Promise.reject(errMsg);
+
   }
 
 }

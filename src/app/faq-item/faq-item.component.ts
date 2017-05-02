@@ -39,9 +39,10 @@ export class FaqItemComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder, private ut: UtilityService, public ms: MdlsService) {
     this.createForm();
+    
   }
 
-  onActiveChanged($event) {
+  onActiveChanged($event) { 
     console.log($event.isActive);
     this.mdlID = $event.isActive ? +$event.node.data.id : -1;
     this.mdlName == $event.isActive ? $event.node.data.name : null;

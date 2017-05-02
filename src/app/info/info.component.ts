@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild, DoCheck, ViewEncapsulation } from '@angular/core';
-import {InfoService} from "../info.service";
+import { InfoService } from "../info.service";
 
-import { GridComponent} from '@progress/kendo-angular-grid';
+import { GridComponent } from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import { Subject } from 'rxjs/Subject';
-import {filterBy} from "@progress/kendo-data-query";
-import {UtilityService} from "../utility.service";
+import { filterBy } from "@progress/kendo-data-query";
+import { UtilityService } from "../utility.service";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SupportIssue } from "../../models";
 
@@ -16,22 +16,22 @@ import { SupportIssue } from "../../models";
   selector: 'lg-info',
   templateUrl: 'info.component.html',
   styleUrls: ['info.component.scss'],
-   encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
 })
 export class InfoComponent implements OnInit {
   public formGroup: FormGroup;
   @ViewChild(GridComponent) viewChild: GridComponent;
   public showFaqDlg: boolean;
   public showRemoveDlg: boolean;
-  constructor(public  infoService: InfoService,public  ut:UtilityService) { }
+  constructor(public infoService: InfoService, public ut: UtilityService) { }
   gridData: Array<SupportIssue>;
   filteredData: Array<SupportIssue>;
-  prbFilter:string;
-  slnFilter:string;
+  prbFilter: string;
+  slnFilter: string;
   public editedRowIndex: number;
   items: Observable<string[]>;
-  ngOnInit(){
-    this.infoService.getFaQs().then(i=>{this.gridData=i.sis;this.filteredData=this.gridData});
+  ngOnInit() {
+    this.infoService.getFaQs().subscribe(i => { this.gridData = i.sis; this.filteredData = this.gridData });
     this.handleAStream();
     this.handleQStream();
 
@@ -41,7 +41,7 @@ export class InfoComponent implements OnInit {
     this.searchQTermStream
       .debounceTime(300)
       .distinctUntilChanged().subscribe(
-      (term:string)=>{
+      (term: string) => {
 
 
         // this.filteredData= this.gridData.filter(i=>i.q.includes(term))
@@ -52,11 +52,11 @@ export class InfoComponent implements OnInit {
           logic: 'and',
           filters: [
             { field: "prb", operator: "contains", value: term, ignoreCase: true },
-            { field: "sln", operator: "contains", value: this.slnFilter||"", ignoreCase: true },
+            { field: "sln", operator: "contains", value: this.slnFilter || "", ignoreCase: true },
 
           ]
         });
-        this.prbFilter=term;
+        this.prbFilter = term;
 
         // console.log("this.viewChild.skip "+this.viewChild.skip);
         // this.viewChild.skip-=290;
@@ -65,8 +65,8 @@ export class InfoComponent implements OnInit {
         // this.ut.tick_then(()=>{this.isGridActive=true})
 
       }
-    )
-    ;
+      )
+      ;
   }
 
   public closeEditor(grid, rowIndex = this.editedRowIndex) {
@@ -75,11 +75,11 @@ export class InfoComponent implements OnInit {
     this.formGroup = undefined;
   }
 
-  public  addHandller(){
-    this.showFaqDlg=true;
+  public addHandller() {
+    this.showFaqDlg = true;
   }
 
-  public saveHandler({sender, rowIndex, formGroup, isNew}) {
+  public saveHandler({ sender, rowIndex, formGroup, isNew }) {
     const si: SupportIssue = formGroup.value;
 
     this.infoService.update(si);
@@ -87,45 +87,49 @@ export class InfoComponent implements OnInit {
     sender.closeRow(rowIndex);
   }
 
-  public removeHandler({dataItem}) {
+  public removeHandler({ dataItem }) {
 
     //this.infoService.remove(dataItem);
-    this.delID=dataItem.id;
+    this.delID = dataItem.id;
     console.log(`dataItem ${dataItem.id}`)
     console.log(`dataItem ${dataItem.prb}`)
     console.log(`dataItem ${dataItem.prb}`)
 
-    this.showRemoveDlg=true;
+    this.showRemoveDlg = true;
   }
 
-  delID:number;
+  delID: number;
 
-  delete(){
+  delete() {
     console.log(`delete from DB ${this.delID}`);
   }
 
   public closeRemoveDlg(status) {
     console.log(`Dialog result: ${status}`);
     this.showRemoveDlg = false;
-    if (status=='yes')
+    if (status == 'yes')
       this.delete();
   }
 
   public closeFaqDlg(status) {
     console.log(`Dialog result: ${status}`);
     this.showFaqDlg = false;
-    if (status=='yes')
-      this.infoService.add(this.ut.faqToSave);
+    if (status == 'yes')
+      this.infoService.add(this.ut.faqToSave).subscribe(
+        i => this.filteredData.push(i),
+        error => console.log(error)
+      );
   }
 
-  dialogContent:string='למחוק רשומה?';
 
-  public editHandler({sender, rowIndex, dataItem}) {
+  dialogContent: string = 'למחוק רשומה?';
+
+  public editHandler({ sender, rowIndex, dataItem }) {
     this.closeEditor(sender);
 
     this.formGroup = new FormGroup({
       'id': new FormControl(dataItem.id),
-      'prb': new FormControl(dataItem.prb,Validators.required),
+      'prb': new FormControl(dataItem.prb, Validators.required),
       'sln': new FormControl(dataItem.sln, Validators.required),
     });
 
@@ -138,49 +142,50 @@ export class InfoComponent implements OnInit {
     console.log(`dataItem ${dataItem.prb}`)
   }
 
-  public cancelHandler({sender, rowIndex}) {
+  public cancelHandler({ sender, rowIndex }) {
     this.closeEditor(sender, rowIndex);
   }
 
-  goHome(){
-    this.viewChild.skip=0;
+  goHome() {
+    this.viewChild.skip = 0;
   }
-  handleAStream(){
+  handleAStream() {
     this.searchATermStream
       .debounceTime(300)
       .distinctUntilChanged().subscribe(
-      (term:string)=>{
+      (term: string) => {
         this.filteredData = filterBy(this.gridData, {
           logic: 'and',
           filters: [
             { field: "sln", operator: "contains", value: term, ignoreCase: true },
-            { field: "prb", operator: "contains", value: this.prbFilter||"", ignoreCase: true },
+            { field: "prb", operator: "contains", value: this.prbFilter || "", ignoreCase: true },
 
           ]
         });
-        this.slnFilter=term;
+        this.slnFilter = term;
         // console.log("this.viewChild.skip "+this.viewChild.skip);
         // this.skip=0;
         // this.viewChild.skip=0;
         // this.isGridActive=false;
         // this.ut.tick_then(()=>{this.isGridActive=true})
       }
-    )
-    ;}
+      )
+      ;
+  }
 
 
-  isGridActive:boolean=true;
-  skip:number=0;
+  isGridActive: boolean = true;
+  skip: number = 0;
   public searchATermStream = new Subject<string>();
   public searchQTermStream = new Subject<string>();
-  searchA(term: string) {this.searchATermStream.next(term); }
+  searchA(term: string) { this.searchATermStream.next(term); }
   searchQ(term: string) { this.searchQTermStream.next(term); }
 
-  getData():Array<SupportIssue>{
-    if (this.gridData==null) return;
-    let l=   this.gridData;
+  getData(): Array<SupportIssue> {
+    if (this.gridData == null) return;
+    let l = this.gridData;
 
-    l=l.filter(i=>i.prb.includes(this.prbFilter)||this.prbFilter==null);
+    l = l.filter(i => i.prb.includes(this.prbFilter) || this.prbFilter == null);
 
     return l;
   }

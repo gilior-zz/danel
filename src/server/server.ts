@@ -1,32 +1,62 @@
-
-
-
-// var express = require('express')
-
 import * as express from 'express'
+import * as bodyParser from 'body-parser'
 import * as core from "express-serve-static-core";
-let app: core.Express = express();
+import * as path from 'path'
+import * as csrf from 'csurf'
+
+import { faqRouter } from "./routes/faqRoutes";
+
+export class Server {
+    app: core.Express = express();
+    csrfObj = csrf({ cookie: true });
+    constructor() {
+        this.app.use(bodyParser.urlencoded({ extended: true }))
+        this.app.use(bodyParser.json())
+        this.app.use(this.csrfObj)
+        this.app.use((req, res, next) => {
+            var csrfToken = req.csrfToken();
+            res.locals._csrf = csrfToken;
+            res.cookie('XSRF-TOKEN', csrfToken);
+            console.log('XSRF-TOKEN ' + csrfToken);
+            next();
+        });
+        // this.registerStatic();
+        let port: number = process.env.port || 3000;
 
 
+        this.app.use('/api/faq', faqRouter);
+        this.app.all('/*', (req, res) => {
 
-let port: number = process.env.port || 3000;
+            res.sendFile(path.resolve(__dirname + '/../index.html'));
 
-let booksRouter: core.Router = express.Router();
+            // res.render(path.join(__dirname + '/../index.html'));
+        });
+        // this.app.get('/', (req: core.Request, res: core.Response) => {
+        //     res.send('welcome')
+        // })
 
-booksRouter.route('/books')
-    .get((req: core.Request, res: core.Response) => {
-        let l = { hello: 'my api j hckj hkjh ckjvhkcjhvk h' };
-        res.json(l);
-    });
+        this.app.listen(port, () => {
+            console.log(path.join(__dirname + '/../index.html'));
+            console.log(`listening on port ${port}`);
+        })
 
-app.use('/api', booksRouter);
-app.use('/api', booksRouter);
+    }
 
-app.get('/', (req: core.Request, res: core.Response) => {
-    res.send('wtf')
-})
+    private registerStatic() {
+        console.log('in registerStatic');
 
-app.listen(port, () => {
-    console.log(`process.env.port ${process.env.port}`);
-    console.log(`listening on port ${port}`);
-})
+        var staticEx = express.static(path.join(__dirname, "."), {
+            maxAge: 90000,
+        });
+
+        this.app.use('/', function (req, res, next) {
+            console.log("STATIC: " + req.url);
+
+            staticEx(req, res, next);
+        });
+    }
+
+
+}
+
+

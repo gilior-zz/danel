@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/observable';
 import { Component, OnInit } from '@angular/core';
 import { LinksService } from "../links.service";
 import { LinkResponse, Link } from "../../models";
@@ -9,9 +10,9 @@ import { LinkResponse, Link } from "../../models";
   styleUrls: ['./links.component.scss']
 })
 export class LinksComponent implements OnInit {
-  public linkResponse: Promise<LinkResponse>;
+  public linkResponse: Observable<LinkResponse>;
 
-  constructor(private  linksService: LinksService) {
+  constructor(private linksService: LinksService) {
   }
 
   onClick(lnk: string) {
@@ -27,5 +28,12 @@ export class LinksComponent implements OnInit {
 
     this.linkResponse = this.linksService.getLinks();
 
+    let lnks: Link[] = [];
+    for (var index = 0; index < 20; index++) {
+      lnks.push({ nm: `nm ${index}`, pth: `pth ${index}`, ctg: `ctg ${index}` })
+    }
+    let l = lnks.find(i => i.nm == '');
+
   }
+
 }

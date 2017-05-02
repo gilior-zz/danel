@@ -1,28 +1,33 @@
-import { Injectable } from '@angular/core';
-import  {Observable} from 'rxjs/observable'
-import 'rxjs/add/observable/of';
-import * as  _ from 'lodash';
+import { Injectable, Inject } from '@angular/core';
 
-import { Response, Http } from "@angular/http";
-import { LinkResponse } from "../models";
+import { Http, Response } from "@angular/http";
+import { RollerResponse } from "../../models";
+import { APP_CONFIG, AppConfig } from "../app-config";
+
+
 @Injectable()
-export class LinksService {
-  url='http://localhost:20158/api/Values/GetLnks';
-  plug:number=15;
+export class RollerService {
+  config: any;
 
-  constructor(private  http:Http) { }
 
-  getLinks():Promise<LinkResponse> {
-    return this.http.get(this.url)
+  plug: number = 6;
+  constructor(private http: Http, @Inject(APP_CONFIG) config: AppConfig) {
+    this.config.apiEndpoint = config.apiEndpoint + '/rlrls';
+  }
+
+  getRllrs(): Promise<RollerResponse> {
+    return this.http.get(this.config.apiEndpoint)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
+
   private extractData(res: Response) {
     let body = res.json();
     return body;
   }
-  private handleError (error: Response | any) {
+
+  private handleError(error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
@@ -35,4 +40,5 @@ export class LinksService {
     console.error(errMsg);
     return Promise.reject(errMsg);
   }
+
 }
