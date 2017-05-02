@@ -12,9 +12,6 @@ import { DialogWindowComponent } from "../dialog-window/dialog-window.component"
 import { FaqItemComponent } from "../faq-item/faq-item.component";
 import { CoreModule } from "./core.module";
 import { SharedModule } from "./shared.module";
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,10 +27,8 @@ import { SharedModule } from "./shared.module";
   imports: [
     BrowserModule,
     SharedModule,
-    CoreModule
-    // AppRoutingModule
+    CoreModule   
   ],
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }

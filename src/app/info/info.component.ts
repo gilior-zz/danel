@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, DoCheck, ViewEncapsulation } from '@angular/core';
 
 
-import { GridComponent } from '@progress/kendo-angular-grid';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import { Subject } from 'rxjs/Subject';
-import { filterBy } from "@progress/kendo-data-query";
+
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SupportIssue } from "../../models";
@@ -22,7 +22,7 @@ import { UtilityService } from "../services/utility.service";
 })
 export class InfoComponent implements OnInit {
   public formGroup: FormGroup;
-  @ViewChild(GridComponent) viewChild: GridComponent;
+
   public showFaqDlg: boolean;
   public showRemoveDlg: boolean;
   constructor(public infoService: InfoService, public ut: UtilityService) { }
@@ -50,14 +50,14 @@ export class InfoComponent implements OnInit {
         // this.prbFilter=term;
         // this.filteredData= this.filteredData.filter(i=>i.a.includes(this.slnFilter) || this.slnFilter==null);
 
-        this.filteredData = filterBy(this.gridData, {
-          logic: 'and',
-          filters: [
-            { field: "prb", operator: "contains", value: term, ignoreCase: true },
-            { field: "sln", operator: "contains", value: this.slnFilter || "", ignoreCase: true },
+        // this.filteredData = filterBy(this.gridData, {
+        //   logic: 'and',
+        //   filters: [
+        //     { field: "prb", operator: "contains", value: term, ignoreCase: true },
+        //     { field: "sln", operator: "contains", value: this.slnFilter || "", ignoreCase: true },
 
-          ]
-        });
+        //   ]
+        // });
         this.prbFilter = term;
 
         // console.log("this.viewChild.skip "+this.viewChild.skip);
@@ -149,21 +149,21 @@ export class InfoComponent implements OnInit {
   }
 
   goHome() {
-    this.viewChild.skip = 0;
+    // this.viewChild.skip = 0;
   }
   handleAStream() {
     this.searchATermStream
       .debounceTime(300)
       .distinctUntilChanged().subscribe(
       (term: string) => {
-        this.filteredData = filterBy(this.gridData, {
-          logic: 'and',
-          filters: [
-            { field: "sln", operator: "contains", value: term, ignoreCase: true },
-            { field: "prb", operator: "contains", value: this.prbFilter || "", ignoreCase: true },
+        // this.filteredData = filterBy(this.gridData, {
+        //   logic: 'and',
+        //   filters: [
+        //     { field: "sln", operator: "contains", value: term, ignoreCase: true },
+        //     { field: "prb", operator: "contains", value: this.prbFilter || "", ignoreCase: true },
 
-          ]
-        });
+        //   ]
+        // });
         this.slnFilter = term;
         // console.log("this.viewChild.skip "+this.viewChild.skip);
         // this.skip=0;

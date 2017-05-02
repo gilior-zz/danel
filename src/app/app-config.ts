@@ -7,7 +7,7 @@ export interface AppConfig {
 
 }
 
-const HERO_DI_CONFIG: AppConfig = {
+export const HERO_DI_CONFIG: AppConfig = {
     apiEndpoint: 'http://localhost:3000/api',
 
 };

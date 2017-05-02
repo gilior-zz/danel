@@ -16,6 +16,7 @@ export class InfoService {
   config: AppConfig
   plug: number = 6;
   constructor(private http: Http, @Inject(APP_CONFIG) config: AppConfig) {
+    this.config = config;
     this.config.apiEndpoint = config.apiEndpoint + '/faq';
   }
 

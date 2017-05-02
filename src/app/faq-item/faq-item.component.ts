@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations'
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { FileInfo } from "@progress/kendo-angular-upload";
+// import { FileInfo } from "@progress/kendo-angular-upload";
 
 
 import { Module, SupportIssueLink, SupportIssue } from "../../models";
@@ -35,7 +35,7 @@ export class FaqItemComponent implements OnInit, OnDestroy {
   mdlID: number;
   mdls: Module[];
   faqForm: FormGroup;
-  myFiles: Array<FileInfo>;
+  // myFiles: Array<FileInfo>;
   private lnks: FileList;
 
   constructor(private fb: FormBuilder, private ut: UtilityService, public ms: MdlsService) {

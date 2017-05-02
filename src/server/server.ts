@@ -13,13 +13,13 @@ export class Server {
         this.app.use(bodyParser.urlencoded({ extended: true }))
         this.app.use(bodyParser.json())
         this.app.use(this.csrfObj)
-        this.app.use((req, res, next) => {
-            var csrfToken = req.csrfToken();
-            res.locals._csrf = csrfToken;
-            res.cookie('XSRF-TOKEN', csrfToken);
-            console.log('XSRF-TOKEN ' + csrfToken);
-            next();
-        });
+        // this.app.use((req, res, next) => {
+        //     var csrfToken = req.csrfToken();
+        //     res.locals._csrf = csrfToken;
+        //     res.cookie('XSRF-TOKEN', csrfToken);
+        //     console.log('XSRF-TOKEN ' + csrfToken);
+        //     next();
+        // });
         // this.registerStatic();
         let port: number = process.env.port || 3000;
 
