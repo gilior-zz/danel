@@ -6,13 +6,13 @@ import { LinksService } from "../services/links.service";
 import { RollerService } from "../services/roller.service";
 import { UtilityService } from "../services/utility.service";
 import { MdlsService } from "../services/mdls.service";
-import { HttpModule } from "@angular/http/http";
+
 import { AppConfigProvider } from "../app-config";
 
 
 @NgModule({
   imports: [
-    HttpModule
+  
   ],
   providers: [requestOptionsProvider,
     InfoService, EnvironmentService,

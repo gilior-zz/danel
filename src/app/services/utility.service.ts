@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { SupportIssue } from "../models";
+import { SupportIssue } from "../../models";
+
 
 
 @Injectable()

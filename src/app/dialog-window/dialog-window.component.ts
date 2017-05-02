@@ -1,5 +1,6 @@
-import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
-import {UtilityService} from "../utility.service";
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { UtilityService } from "../services/utility.service";
+
 
 @Component({
   selector: 'lg-dialog-window',

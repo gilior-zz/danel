@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {EnvironmentService} from "../environment.service";
+
 
 import { trigger, state, style, transition, animate } from '@angular/animations'
 import { DanelVersionResponse } from "../../models";
+import { EnvironmentService } from "../services/environment.service";
 
 @Component({
   selector: 'lg-environment',

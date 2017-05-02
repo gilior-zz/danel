@@ -1,7 +1,8 @@
 import { Observable } from 'rxjs/observable';
 import { Component, OnInit } from '@angular/core';
-import { LinksService } from "../links.service";
+
 import { LinkResponse, Link } from "../../models";
+import { LinksService } from "../services/links.service";
 
 
 @Component({

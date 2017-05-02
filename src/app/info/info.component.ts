@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, DoCheck, ViewEncapsulation } from '@angular/core';
-import { InfoService } from "../info.service";
+
 
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs/Observable';
@@ -8,9 +8,11 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import { Subject } from 'rxjs/Subject';
 import { filterBy } from "@progress/kendo-data-query";
-import { UtilityService } from "../utility.service";
+
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SupportIssue } from "../../models";
+import { InfoService } from "../services/info.service";
+import { UtilityService } from "../services/utility.service";
 
 @Component({
   selector: 'lg-info',

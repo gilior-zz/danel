@@ -5,9 +5,10 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { FileInfo } from "@progress/kendo-angular-upload";
 
-import { UtilityService } from "../utility.service";
-import { MdlsService } from "../mdls.service";
+
 import { Module, SupportIssueLink, SupportIssue } from "../../models";
+import { UtilityService } from "../services/utility.service";
+import { MdlsService } from "../services/mdls.service";
 
 
 

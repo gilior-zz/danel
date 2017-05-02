@@ -4,7 +4,8 @@ import 'rxjs/add/observable/of';
 import * as  _ from 'lodash'
 
 import { Response, Http } from "@angular/http";
-import { DanelVersionResponse } from "../models";
+import { DanelVersionResponse } from "../../models";
+
 
 @Injectable()
 export class EnvironmentService {
